@@ -290,7 +290,7 @@ class Article {
 			md: '',
 			hasHTML: true,
 			featured: false,
-			timestamp: Date.now(),
+			timestamp: Math.round(Date.now()/1000), // Unix epoch in seconds
 			body: '',
 			images: [],
 			videos: [],
