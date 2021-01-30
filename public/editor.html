@@ -11,16 +11,16 @@
 		<template class='template-editor'>
 			<main class='editor'>
 				<header>
-					<input class='remove' type='button' value='Remove'>
-					<input class='render' type='button' value='Preview'>
-					<input class='publish' type='button' value='Publish'>
+					<input class='remove' type='button' value='Remove' accesskey='r'>
+					<input class='render' type='button' value='Preview' accesskey='v'>
+					<input class='publish' type='button' value='Publish' accesskey='p'>
 				</header>
-				<h3 class='title' contenteditable></h3>
+				<h3 class='title' contenteditable accesskey='t'></h3>
 				<address class='author' contenteditable></address>
 				<input class='id' title='Click to copy' readonly>
 				<select class='category'>
 					<optgroup label='Homepage'>
-						<option default>General Info</option>
+						<option default>General_Info</option>
 						<option>ASB</option>
 						<option>District</option>
 					</optgroup>
@@ -31,7 +31,11 @@
 						<option>Colleges</option>
 						<option>Reference</option>
 					</optgroup>
+					<optgroup label='Debug'>
+						<option>Debug</option>
+					</optgroup>
 				</select>
+				<input class='date' type='datetime-local'>
 				<label>
 					<input class='featured' type='checkbox' value='featured'>
 					featured
@@ -48,24 +52,20 @@
 				<section class='body'></section>
 			</main>
 		</template>
+		<div class='resize' tabindex='0'></div>
 		<aside class='browser'>
-			<nav>
-				<h1>
-					AHS App Content Editor
-				</h1>
-				<button class='new-article'>
-					New article
-				</button>
-				<input class='search' placeholder='Search...'>
-				<a class='sources' href='sources.html' target='_blank'>Sources</a>
-			</nav>
+			<header>
+				<input type='button' class='new-article' value='+' accesskey='n'>
+				<input class='search' placeholder='Search {property match1|match2|match3}' accesskey='s'>
+				<a type='button' class='sources' href='sources.html' target='_blank'>Sources</a>
+			</header>
 			<template class='template-preview'>
-				<article class='preview'>
+				<button class='preview'>
 					<h3 class='title'></h3>
 					<address class='author'></address>
 					<p class='body'></p>
 					<p class='status'>unpublished changes</p>
-				</article>
+				</button>
 			</template>
 		</aside>
     
