@@ -108,13 +108,16 @@ function makeEditor(article) {
 	preview = article.preview
 	preview.classList.add('open')
 
+	// Convert epoch to ISO format
+	article.public.date = new Date((article.public.timestamp-8*60*60)*1000).toISOString().slice(0,-1)
+
 	for (const property in article.public) {
 		updateElement(
 			editor.querySelector('.'+property),
 			article.public[property]
 		)
 	}
-
+		
 	for(const url of article.public.images) {
 		makeMedia(article,url,false)
 	}
@@ -134,7 +137,10 @@ function makeEditor(article) {
 				)
 				break
 			case 'category':
-				//location
+				article.public.location = Object.keys(locations).find(location=>locations[location].includes(article.public.category))
+				break
+			case 'date':
+				article.public.timestamp = Math.round(Date.parse(article.public.date).now()/1000) // Unix epoch in seconds
 				break
 		}
 
@@ -284,13 +290,13 @@ class Article {
 		this.public = { // Data to be passed to the server
 			id: id  || makeID(),
 			location: 'homepage',
-			category: 'General Info',
+			category: 'General_Info',
 			title: 'Untitled Article',
 			author: '',
 			md: '',
 			hasHTML: true,
 			featured: false,
-			timestamp: Math.round(Date.now()/1000), // Unix epoch in seconds
+			timestamp: Math.floor(Date.now()/1000),
 			body: '',
 			images: [],
 			videos: [],
