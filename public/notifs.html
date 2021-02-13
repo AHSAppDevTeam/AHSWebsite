@@ -163,14 +163,17 @@
     <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js></script>
 
     <script>
-        $(document).ready(function(){
+        let messagingKey
+        firebase.database().ref('secrets/messaging').once('value',snapshot=>{
+            messagingKey=snapshot.val()
+            
             $('#postnotif').click(function(){
                 var settings = {
                     "url": "https://fcm.googleapis.com/fcm/send",
                     "method": "POST",
                     "timeout": 0,
                     "headers": {
-                        "Authorization": "key=AAAAmFLl2Hg:APA91bE_LA-QY1JMJJjQpr_HGsCkcizU3sl_uNXI2inT1LgSXGaSOMbevOjRUzITq_8e8Tk2qLioUyMUdWQ2Im-92qhbgKhLG3PvQA8luQWmBtZ2NKZgYs4dM9kwsyDC-ubb5asSM3td",
+                        "Authorization": messagingKey,
                         "Content-Type": "application/json"
                     },
                     "data": JSON.stringify({
@@ -183,13 +186,13 @@
                         },
                         "to": "/topics/" + $('#topic').val()
                     }),
-                };
+                }
 
                 $.ajax(settings).done(function (response) {
-                    console.log(response);
-                });
-            });
-        });
+                    console.log(response)
+                })
+            })
+        })
     </script>
     
     <script>
